@@ -1,68 +1,119 @@
-# DataCopilot – AI-Powered Natural Language to SQL Assistant
+# 🤖 DataCopilot – AI-Powered Natural Language to SQL Assistant
 
 ## 🚀 Overview
 
-DataCopilot is an AI-driven system that converts natural language queries into SQL, executes them on a structured database, and provides human-readable explanations.
+DataCopilot is an AI-driven system that allows users to query structured data using natural language.
+Instead of writing SQL, users can ask questions like:
 
-Example:
+> “Show top 5 customers by revenue”
 
-> "Show top 5 customers by revenue in Q3"
-
-✔ Generates SQL
-✔ Executes query
-✔ Displays results
-✔ Explains logic
+The system generates SQL, executes it on a database, and returns results along with business-friendly explanations and visual insights.
 
 ---
 
-## 🧠 Features
+## 🧠 Key Features
 
-* Natural Language → SQL using LLMs
+### 🔹 Natural Language → SQL
+
+* Converts user queries into SQL using a local LLM (Ollama)
 * Schema-aware query generation
-* SQL validation & safety layer
-* Query explanation in business terms
-* Interactive dashboard (Streamlit)
+* Supports joins, aggregations, and filtering
+
+### 🔹 Self-Healing Query System
+
+* Detects SQL execution errors
+* Automatically corrects queries using LLM feedback
+* Retries execution without user intervention
+
+### 🔹 Explainability Layer
+
+* Converts SQL queries into simple business explanations
+* Makes insights accessible to non-technical users
+
+### 🔹 Interactive Dashboard
+
+* Built using Streamlit
+* Displays:
+
+  * Generated SQL
+  * Query results
+  * KPI metrics
+  * Charts (Plotly)
+
+### 🔹 Dynamic CSV Upload (New 🚀)
+
+* Users can upload their own datasets
+* System dynamically generates schema from uploaded data
+* Queries work on custom datasets without code changes
 
 ---
 
 ## 🏗️ Architecture
 
-User Query → LLM → SQL → Validator → Database → Results → Explanation
+User Query → LLM → SQL → Validator → Database → Results → Explanation → Dashboard
 
 ---
 
 ## 🛠️ Tech Stack
 
-* Python (FastAPI)
-* OpenAI / Gemini API
-* SQLite (mock database)
-* Streamlit UI
+* **Python**
+* **SQLite** (database)
+* **Streamlit** (UI)
+* **Ollama (Mistral)** – local LLM
+* **Pandas** – data processing
+* **Plotly** – visualization
 
 ---
 
-## 📊 Sample Use Cases
+## 📂 Project Structure
 
-* Business analytics queries
-* Revenue insights
-* Customer segmentation
+```
+DataCopilot/
+│
+├── app/
+│   ├── llm.py               # NL → SQL + self-healing
+│   ├── db.py                # Database execution layer
+│   ├── pipeline.py          # End-to-end query pipeline
+│   ├── validator.py         # SQL safety checks
+│   ├── explainability.py    # SQL → business explanation
+│   └── main.py              # Backend entry point (future use)
+│
+├── ui/
+│   └── streamlit_app.py     # Dashboard UI
+│
+├── data/
+│   ├── sap_mock.db
+│   └── sample datasets
+│
+├── requirements.txt
+├── .env
+└── README.md
+```
 
 ---
 
-## ⚙️ Setup
+## ⚙️ Setup Instructions
+
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/yourusername/DataCopilot.git
 cd DataCopilot
+```
+
+### 2. Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-Run backend:
+### 3. Run Ollama (Local LLM)
 
 ```bash
-uvicorn app.main:app --reload
+ollama run mistral
 ```
 
-Run UI:
+### 4. Start Application
 
 ```bash
 streamlit run ui/streamlit_app.py
@@ -70,13 +121,54 @@ streamlit run ui/streamlit_app.py
 
 ---
 
-## 📈 Future Improvements
+## 📊 Example Queries
 
-* Query accuracy evaluation
+* Show total revenue by region
+* Top 5 customers by revenue
+* Total revenue by product
+* Which region generates the highest revenue?
+
+---
+
+## 🧪 Example Workflow
+
+1. Upload a CSV dataset (optional)
+2. Ask a question in natural language
+3. System:
+
+   * Generates SQL
+   * Executes query
+   * Fixes errors (if any)
+   * Displays results + explanation + charts
+
+---
+
+## ⚠️ Known Limitations
+
+* CSV parsing may fail for malformed files (will be improved)
+* LLM accuracy depends on schema clarity
+* Local LLM may be slower than cloud APIs
+
+---
+
+## 🚀 Future Improvements
+
+* Robust CSV cleaning & validation
+* Multi-table support
 * Role-based access control
-* Multi-database support
-* Query correction loop
+* Query history persistence
+* Support for multiple databases
+
+---
+
+## 💡 Key Learnings
+
+* Integrating LLMs with structured data systems
+* Handling SQL dialect mismatches
+* Building self-healing pipelines using feedback loops
+* Designing explainable AI systems for business users
 
 ---
 
 
+---
